@@ -4,6 +4,7 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://${USER_DB}:${PASSWORD_DB}@webfluxcluster.qsjf641.mongodb.net/${DB_NAME}?retryWrites=true&w=majority&appName=webfluxCluster
+      auto-index-creation: true
 
 USER_DB: "maykedev"
 DB_NAME: "webflux-cource"
