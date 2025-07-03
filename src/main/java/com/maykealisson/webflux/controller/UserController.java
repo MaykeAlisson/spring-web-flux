@@ -2,6 +2,7 @@ package com.maykealisson.webflux.controller;
 
 import com.maykealisson.webflux.domain.request.UserRequest;
 import com.maykealisson.webflux.domain.response.UserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import reactor.core.publisher.Mono;
 public interface UserController {
 
     @PostMapping
-    ResponseEntity<Mono<Void>> create(@RequestBody UserRequest request);
+    ResponseEntity<Mono<Void>> create(@Valid @RequestBody UserRequest request);
 
     @GetMapping(value = "/{id}")
     ResponseEntity<Mono<UserResponse>> findById(@PathVariable String id);

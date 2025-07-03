@@ -4,6 +4,7 @@ import com.maykealisson.webflux.controller.UserController;
 import com.maykealisson.webflux.domain.request.UserRequest;
 import com.maykealisson.webflux.domain.response.UserResponse;
 import com.maykealisson.webflux.domain.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserControllerImpl implements UserController {
     private final UserService service;
 
     @Override
-    public ResponseEntity<Mono<Void>> create(final UserRequest request) {
+    public ResponseEntity<Mono<Void>> create(@Valid final UserRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(request).then());
     }
 
