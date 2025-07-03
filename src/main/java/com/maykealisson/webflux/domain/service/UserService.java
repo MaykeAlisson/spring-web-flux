@@ -6,6 +6,7 @@ import com.maykealisson.webflux.domain.response.UserResponse;
 import com.maykealisson.webflux.output.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -17,6 +18,16 @@ public class UserService {
 
     public Mono<UserResponse> save(final UserRequest request){
         return repository.save(mapper.toEntity(request))
+                .map(mapper::toResponse);
+    }
+
+    public Mono<UserResponse> findById(final String id){
+        return repository.findById(id)
+                .map(mapper::toResponse);
+    }
+
+    public Flux<UserResponse> findAll(){
+        return repository.findAll()
                 .map(mapper::toResponse);
     }
 }
