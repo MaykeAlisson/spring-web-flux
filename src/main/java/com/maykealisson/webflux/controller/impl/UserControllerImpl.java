@@ -37,11 +37,11 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<Mono<UserResponse>> update(final String id, final UserRequest request) {
-        return null;
+        return ResponseEntity.ok().body(service.update(id, request));
     }
 
     @Override
     public ResponseEntity<Mono<Void>> delete(final String id) {
-        return null;
+        return ResponseEntity.ok().body(service.delete(id));
     }
 }

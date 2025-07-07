@@ -16,18 +16,29 @@ public class UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
 
-    public Mono<UserResponse> save(final UserRequest request){
+    public Mono<UserResponse> save(final UserRequest request) {
         return repository.save(mapper.toEntity(request))
                 .map(mapper::toResponse);
     }
 
-    public Mono<UserResponse> findById(final String id){
+    public Mono<UserResponse> findById(final String id) {
         return repository.findById(id)
                 .map(mapper::toResponse);
     }
 
-    public Flux<UserResponse> findAll(){
+    public Flux<UserResponse> findAll() {
         return repository.findAll()
                 .map(mapper::toResponse);
+    }
+
+    public Mono<UserResponse> update(final String id, final UserRequest request) {
+        return repository.findById(id)
+                .map(user -> mapper.toEntity(request, user))
+                .flatMap(repository::save)
+                .map(mapper::toResponse);
+    }
+
+    public Mono<Void> delete(final String id) {
+        return repository.delete(id).then();
     }
 }
